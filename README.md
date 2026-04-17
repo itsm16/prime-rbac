@@ -1,9 +1,38 @@
 # RBC API Routes Documentation
 
 ## Base URL
-`http://localhost:3000`
+https://prime-rbac.vercel.app/
 
+### Role-Based Access Control (RBAC)
+
+### Scalability
+- Microservice architecture: Each module (auth, jobs) operates as an independent service with its own validation and error handling
+
+---
 ## Authentication Routes (`/api/auth`)
+
+### User Roles
+- **user**: Can view jobs and apply for jobs
+- **admin**: Can perform all user actions plus create, update, and delete jobs
+
+### Authentication
+- All protected routes require a valid JWT token in the Authorization header
+- Format: `Authorization: Bearer <token>`
+- Admin routes additionally require the user to have "admin" role
+
+## Middleware
+- `checkToken`: Validates JWT token
+- `checkRole`: Validates user role (admin-only routes)
+- `validate`: Validates request body against DTO schemas
+
+## Error Handling
+- All routes return standardized error responses
+- Validation errors return 400 status
+- Authentication errors return 401 status
+- Authorization errors return 403 status
+- Microservice architecture: Each module (auth, jobs) operates as an independent service with its own validation and error handling
+
+---
 
 ### Public Routes
 - `POST /api/auth/register`
@@ -68,24 +97,6 @@
   - Description: Check API health status
   - Response: { message: "runs" }
 
-## Role-Based Access Control (RBC)
+---
 
-### User Roles
-- **user**: Can view jobs and apply for jobs
-- **admin**: Can perform all user actions plus create, update, and delete jobs
 
-### Authentication
-- All protected routes require a valid JWT token in the Authorization header
-- Format: `Authorization: Bearer <token>`
-- Admin routes additionally require the user to have "admin" role
-
-## Middleware
-- `checkToken`: Validates JWT token
-- `checkRole`: Validates user role (admin-only routes)
-- `validate`: Validates request body against DTO schemas
-
-## Error Handling
-- All routes return standardized error responses
-- Validation errors return 400 status
-- Authentication errors return 401 status
-- Authorization errors return 403 status
