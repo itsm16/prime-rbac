@@ -61,20 +61,20 @@ const update = async (id: string, {role, company, location, description}: Create
 }
 
 const deleteJob = async (id: string) => {
-    const jobExists = await db.select().from(jobsTable).where(eq(jobsTable.id, parseInt(id)))
-    
-    if(!jobExists){
-        throw ApiError.badRequest("Job not found")
+    const jobExists = await db.select().from(jobsTable).where(eq(jobsTable.id, Number(id)));
+
+    if (jobExists.length === 0) {
+        throw ApiError.badRequest("Job not found");
     }
 
-    const job = await db.delete(jobsTable).where(eq(jobsTable.id, parseInt(id))).returning()
+    const job = await db.delete(jobsTable).where(eq(jobsTable.id, Number(id))).returning();
 
-    if(!job){
-        throw ApiError.badRequest("Couldn't delete job")
+    if (job.length === 0) {
+        throw ApiError.badRequest("Couldn't delete job");
     }
 
-    return job
-}
+    return job;
+};
 
 const apply = async (id: string, data: { userId: number, resume_url: string }) => {
     const jobExists = await db.select().from(jobsTable).where(eq(jobsTable.id, parseInt(id)))

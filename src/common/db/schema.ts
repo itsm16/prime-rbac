@@ -18,11 +18,15 @@ const jobsTable = pgTable("job", {
 })
 
 const applicationsTable = pgTable("applications", {
-    id : t.integer().primaryKey().generatedAlwaysAsIdentity(),
-    user_id: t.integer().references(() => usersTable.id).notNull(),
-    job_id: t.integer().references(() => jobsTable.id).notNull(),
+    id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
+    user_id: t.integer()
+        .references(() => usersTable.id)
+        .notNull(),
+    job_id: t.integer()
+        .references(() => jobsTable.id, { onDelete: "cascade" })
+        .notNull(),
     resume_url: t.text().notNull()
-})
+});
 
 export {
     usersTable,
