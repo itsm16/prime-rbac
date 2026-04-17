@@ -1,7 +1,16 @@
-# RBC API Routes Documentation
+# RBAC API Routes Documentation
 
-## Base URL
+### Video demo
+https://drive.google.com/file/d/17iQUsZMChS4ZQGZ20ADDPtNyBhYyCV2W/view?usp=sharing
+
+### Base URL
 https://prime-rbac.vercel.app/
+
+### live frontend - complete app
+https://prime-client-chi.vercel.app/
+
+
+---
 
 ### Role-Based Access Control (RBAC)
 
